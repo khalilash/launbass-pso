@@ -1,0 +1,92 @@
+/* GLOBAL STYLES */
+body {
+    /* Menggunakan warna yang sangat terang dan lembut, mirip Alice Blue */
+    background-color: #f0faff;
+}
+.header {
+    background-color: transparent;
+    padding: 20px 0 10px 0;
+}
+
+/* --- STYLING KARTU PROFIL (.profile-card) --- */
+.profile-card {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    padding: 15px;
+}
+
+.profile-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 18px 0;
+    border-bottom: 1px dashed #ddd;
+}
+
+.profile-item:last-child {
+    border-bottom: none;
+}
+
+.profile-icon {
+    font-size: 32px;
+    color: #999;
+    margin-right: 15px;
+    padding-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+/* --- STYLING ACTIONS & TOMBOL --- */
+.profile-actions a {
+    font-size: 0.9em;
+    margin-right: 15px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.action-ubah {
+    color: #0d6efd;
+}
+
+.action-nonaktif {
+    /* Mengubah warna non-aktif Alfan menjadi merah, lalu ke biru jika aktif */
+    color: #dc3545;
+}
+
+.btn-tambah {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    border-radius: 50px;
+    font-weight: bold;
+    padding: 12px;
+}
+
+/* --- STYLING BOTTOM NAVBAR --- */
+.bottom-nav {
+    /* MENGUBAH BACKGROUND NAVBAR MENJADI GELAP SESUAI DESAIN */
+    background-color: #1e2129;
+    border-top: none;
+    padding: 5px 0;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-nav .nav-link {
+    /* WARNA IKON MENJADI TERANG DI NAVBAR GELAP */
+    color: #ddd;
+    font-size: 1.5rem;
+}
+
+/* Styling Ikon Aktif */
+.active-icon {
+    color: #fff;
+    font-size: 2rem;
+    position: relative;
+    top: -20px;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: #0d6efd;
+    /* BORDER DISESUAIKAN DENGAN WARNA BACKGROUND BODY */
+    border: 5px solid #f0faff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
