@@ -7,17 +7,11 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Kelompok 7 PPPL Kelas C
+## Kelompok 9 PSO C
+Nabila Rahadatul - 5026231025
+Zaskia Muazatun - 5026231021
+Khalila Shafarayhani - 5026231167
 
-<img src="/public/ppplphoto.jpg" alt="team's photo">
-
-Members:
-- (JunasVee) Arjuna Veetaraq - 5026231227
-- (rafdim) Rafael Dimas Khristianto - 5026231206
-- (zsky-le) Zaskia Muazatun M - 5026231021
-- ⁠(dzakiadfizz) Muhammad Dzaki Adfiz - 5026231150
-- (ghofarialfan) Alfan Ghofari Prasanna Firmansyah - 5026231208
-- (Javed-amani) Javed Amani Syauki - 5026231186
 ## Apps Description
 Launbass memberikan layanan digitalisasi dalam proses bisnis dari usaha laundry, yang memungkinkan pemilik memantau seluruh proses dari penerimaan baju sampai pengambilan baju, detail pesanan dan juga pencacatan keuangan yang ada. Aplikasi memiliki beberapa fitur unggulan seperti chat interaktif dan juga integrasi pencatatan sistem keuangan yang dilengkapi dengan informasi pekerja yang bertugas pada saat itu. Tujuan utama dari aplikasi ini adalah memberikan pengalaman digital laundry yang terintegrasi dan memuaskan melalui sistem yang mudah digunakan, efisien juga informatif bagi pemilik laundry. Latar belakang tujuan ini berdasar dari masalah umum dimana sulit mengatur jadwal pengambilan dan pengantaran baju, juga tidak adanya integrasi proses laundry dari tiap pelanggan apabila terjadi pergantian shift.
 
