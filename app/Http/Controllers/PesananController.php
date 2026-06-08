@@ -75,10 +75,10 @@ class PesananController extends Controller
         ];
 
 
-                dd([
-            'session_user_id' => session('user_id'),
-            'insert' => $insert
-        ]);
+        //         dd([
+        //     'session_user_id' => session('user_id'),
+        //     'insert' => $insert
+        // ]);
         
         try {
             $id = DB::table('pesanan')->insertGetId($insert);
