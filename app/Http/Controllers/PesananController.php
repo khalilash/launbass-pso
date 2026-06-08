@@ -75,8 +75,11 @@ class PesananController extends Controller
         ];
 
 
-
-
+                dd([
+            'session_user_id' => session('user_id'),
+            'insert' => $insert
+        ]);
+        
         try {
             $id = DB::table('pesanan')->insertGetId($insert);
         } catch (\Throwable $e) {
@@ -84,10 +87,10 @@ class PesananController extends Controller
             return redirect()->route('tambahpesanan')
                 ->withInput()
                 ->with('error', 'Gagal menyimpan pesanan.');
-        }
+}
 
-        return redirect()->route('pesanan.detail', $id)
-            ->with('success', 'Pesanan berhasil ditambahkan!');
+return redirect()->route('pesanan.detail', $id)
+    ->with('success', 'Pesanan berhasil ditambahkan!');
     }
 
     public function show($id)
