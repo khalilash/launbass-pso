@@ -36,10 +36,10 @@ class PesananController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
 
         $request->validate([
-            'pelanggan_id' => 'required|exists:pelanggan,IDPelanggan',
+            'pelanggan_id' => 'required|exists:pelanggan,id',
             'paket_id' => 'required|exists:paket,IDPaket',
             'jumlah' => 'required|integer|min:1',
             'berat' => 'required|numeric|min:0.1',
