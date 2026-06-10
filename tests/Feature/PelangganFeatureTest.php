@@ -14,19 +14,16 @@ class PelangganFeatureTest extends TestCase
     #[Test]
     public function pelanggan_dapat_disimpan_ke_database()
     {
-        $data = [
-            'Nama'          => 'Budi Santoso',
-            'Nomor_HP'      => '08123456789',
-            'Email'         => 'budi@launbass.com',
-            'Alamat'        => 'Jl. Merdeka No. 1 Surabaya',
-            'Tanggal_Lahir' => '1990-05-15',
-        ];
-
-        Pelanggan::create($data);
+        Pelanggan::create([
+            'nama'    => 'Budi Santoso',
+            'alamat'  => 'Jl. Merdeka No. 1 Surabaya',
+            'telepon' => '08123456789',
+            'aktif'   => true,
+        ]);
 
         $this->assertDatabaseHas('pelanggan', [
-            'Nama'  => 'Budi Santoso',
-            'Email' => 'budi@launbass.com',
+            'nama'    => 'Budi Santoso',
+            'telepon' => '08123456789',
         ]);
     }
 
@@ -34,34 +31,48 @@ class PelangganFeatureTest extends TestCase
     public function pelanggan_dapat_diambil_dari_database()
     {
         Pelanggan::create([
-            'Nama'          => 'Siti Rahayu',
-            'Nomor_HP'      => '08987654321',
-            'Email'         => 'siti@launbass.com',
-            'Alamat'        => 'Jl. Sudirman No. 5 Surabaya',
-            'Tanggal_Lahir' => '1995-08-20',
+            'nama'    => 'Siti Rahayu',
+            'alamat'  => 'Jl. Sudirman No. 5 Surabaya',
+            'telepon' => '08987654321',
+            'aktif'   => true,
         ]);
 
-        $pelanggan = Pelanggan::where('Email', 'siti@launbass.com')->first();
+        $pelanggan = Pelanggan::where('telepon', '08987654321')->first();
 
         $this->assertNotNull($pelanggan);
-        $this->assertEquals('Siti Rahayu', $pelanggan->Nama);
+        $this->assertEquals('Siti Rahayu', $pelanggan->nama);
     }
 
     #[Test]
     public function pelanggan_dapat_dihapus_dari_database()
     {
         $pelanggan = Pelanggan::create([
-            'Nama'          => 'Andi Wijaya',
-            'Nomor_HP'      => '08111222333',
-            'Email'         => 'andi@launbass.com',
-            'Alamat'        => 'Jl. Ahmad Yani No. 10',
-            'Tanggal_Lahir' => '1988-03-10',
+            'nama'    => 'Andi Wijaya',
+            'alamat'  => 'Jl. Ahmad Yani No. 10',
+            'telepon' => '08111222333',
+            'aktif'   => true,
         ]);
 
         $pelanggan->delete();
 
         $this->assertDatabaseMissing('pelanggan', [
-            'Email' => 'andi@launbass.com',
+            'telepon' => '08111222333',
+        ]);
+    }
+
+    #[Test]
+    public function pelanggan_nonaktif_dapat_disimpan()
+    {
+        Pelanggan::create([
+            'nama'    => 'Rudi Hermawan',
+            'alamat'  => 'Jl. Diponegoro No. 20',
+            'telepon' => '08555666777',
+            'aktif'   => false,
+        ]);
+
+        $this->assertDatabaseHas('pelanggan', [
+            'nama'  => 'Rudi Hermawan',
+            'aktif' => false,
         ]);
     }
 }
