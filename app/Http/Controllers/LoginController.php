@@ -35,7 +35,7 @@ class LoginController extends Controller
             'user_email' => $user->Email,
             'user_name' => $user->Name ?? null
         ]);
-
+        session()->save(); // TAMBAHIN INI
         // Redirect ke home (sesuai web.php kamu)
         return redirect('/home');
     }

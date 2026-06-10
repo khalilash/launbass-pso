@@ -19,8 +19,6 @@ Launbass memberikan layanan digitalisasi dalam proses bisnis dari usaha laundry,
 Aplikasi laundry untuk pemilik usaha ini dirancang agar dapat membantu mengelola seluruh proses operasional, keuangan, hingga interaksi dengan pelanggan. Berikut fitur-fitur utama yang tersedia:
 -   Manajemen Pesanan & Operasional
 Aplikasi menyediakan fitur pencatatan pesanan lengkap dengan detail pelanggan (nama, nomor HP, alamat, dan catatan khusus). Pemilik dapat memantau status pesanan secara real-time mulai dari diterima, dicuci, dikeringkan, disetrika, hingga selesai. Selain itu, sistem mendukung penjadwalan kerja agar beban cucian bisa dibagi secara optimal, serta mempermudah pengaturan pengantaran dan penjemputan cucian.
-- Manajemen Keuangan
-Aplikasi dilengkapi dengan pencatatan pemasukan dan pengeluaran harian untuk memantau arus kas usaha. Pemilik juga dapat melihat laporan keuangan bulanan yang otomatis dihasilkan sistem, serta mengirimkan nota digital kepada pelanggan sebagai pengganti struk fisik.
 - Komunikasi & Manajemen Pelanggan (CRM)
 Fitur chatbot interaktif memudahkan pelanggan bertanya status cucian tanpa harus menghubungi langsung pemilik. Selain itu, aplikasi menyimpan data pelanggan dan riwayat transaksi, sehingga memudahkan pengelolaan hubungan jangka panjang. Fitur komplain juga tersedia agar pelanggan dapat melaporkan masalah layanan dengan cepat.
 - Manajemen SDM
