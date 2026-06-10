@@ -52,3 +52,6 @@ jobs:
 
     - name: Verify Laravel Installation
       run: php artisan --version
+
+    - name: Run Unit Tests
+      run: php artisan test --testsuite=Unit
