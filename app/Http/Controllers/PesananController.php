@@ -34,7 +34,7 @@ class PesananController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
 
         $request->validate([
             'pelanggan_id' => 'required|exists:pelanggan,id',
@@ -94,15 +94,15 @@ return redirect()->route('pesanan.detail', $id)
     public function show($id)
     {
         $pesanan = DB::table('pesanan as p')
-            ->leftJoin('pelanggan as pl', 'pl.IDPelanggan', '=', 'p.IDPelanggan')
+            ->leftJoin('pelanggan as pl', 'pl.id', '=', 'p.IDPelanggan')
             ->leftJoin('user as u', 'u.IDUser', '=', 'p.IDUser')
             ->leftJoin('paket as pk', 'pk.IDPaket', '=', 'p.IDPaket')
             ->select(
                 'p.*',
-                'pl.Nama as nama_pelanggan',
-                'pl.Nomor_HP as no_telp',
-                'pl.Alamat as alamat',
-                'u.Nama as nama_user',
+                'pl.nama as nama_pelanggan',
+                'pl.telepon as no_telp',
+                'pl.alamat as alamat',
+                'u.nama as nama_user',
                 'pk.Jenis_Layanan as nama_paket',
                 'pk.HargaPerKg'
             )
