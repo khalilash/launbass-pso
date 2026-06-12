@@ -1,5 +1,4 @@
-<!-- NRP: 5026231227| Nama: Arjuna Veetaraq -->
-<!-- NRP: 5026231206| Nama: Rafael Dimas Khristianto (membantu memperbaiki password requirements & UI/UX) -->
+
 
 <!DOCTYPE html>
 <html lang="id">

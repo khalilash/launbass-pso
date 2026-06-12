@@ -1,6 +1,4 @@
-<!-- resources/views/layouts/nav-styles.blade.php -->
-<!-- NRP: 5026231206| Nama: Rafael Dimas Khristianto -->
-<!-- NRP: 50262310227| Nama: Arjuna Veetaraq -->
+
 <style>
     /* Using system SF stack: no external @import needed */
     @keyframes slideUp {

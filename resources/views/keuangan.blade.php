@@ -1,5 +1,4 @@
-<!-- NRP: 5026231206| Nama: Rafael Dimas Khristianto (membantu memperbaiki UI/UX) -->
-<!-- 5026231208 - Alfan Ghofari Prasanna Firmasyah -->
+
 <!DOCTYPE html>
 <html lang="id">
 <head>

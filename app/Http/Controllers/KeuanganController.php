@@ -1,5 +1,4 @@
 <?php
-// 5026231208 - Alfan Ghofari Prasanna Firmasyah
 
 namespace App\Http\Controllers;
 

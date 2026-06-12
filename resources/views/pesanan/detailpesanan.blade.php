@@ -1,4 +1,4 @@
-{{-- NRP: 5026231021 | Nama: Zaskia Muazatun M --}}
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -145,7 +145,7 @@
 
             <p><span class="detail-label">Jumlah:</span> {{ $pesanan->Jumlah_Pcs }}</p>
             <p><span class="detail-label">Berat:</span> {{ $pesanan->Berat_Kg }} kg</p>
-            
+
             <p>
                 <span class="detail-label">Paket:</span>
                 {{ $pesanan->nama_paket }}

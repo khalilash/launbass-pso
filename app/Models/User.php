@@ -1,6 +1,6 @@
 <?php
 
-// NRP: 5026231227| Nama: Arjuna Veetaraq
+
 
 namespace App\Models;
 

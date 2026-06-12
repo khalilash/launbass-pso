@@ -1,8 +1,5 @@
 <?php
-// NRP: 5026231206 | Nama: Rafael Dimas Khristianto
-// NRP: 5026231227 | Nama: Arjuna Veetaraq
-// NRP: 5026231150 | Nama: Muhammad Dzaki Adfiz
-// NRP: 5026231021| Nama: Zaskia Muazatun M
+
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PelangganController;

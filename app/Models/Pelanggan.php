@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// NRP: 5026231150| Nama: Muhammad Dzaki Adfiz
+
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

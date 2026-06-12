@@ -1,8 +1,5 @@
 <?php
 
-// <!-- NRP: 5026231150| Nama: Muhammad Dzaki Adfiz -->
-// <!-- NRP: 5026231227| Nama: Arjuna Veetaraq -->
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;

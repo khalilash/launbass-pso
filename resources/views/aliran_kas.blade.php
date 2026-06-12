@@ -1,4 +1,4 @@
-<!-- 5026231208 - Alfan Ghofari Prasanna Firmasyah -->
+
 <!DOCTYPE html>
 <html lang="id">
 <head>

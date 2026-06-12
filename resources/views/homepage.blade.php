@@ -1,5 +1,4 @@
-{{-- NRP: 5026231206 | Nama: Rafael Dimas Khristianto --}}
-<!-- NRP: 5026231227 | Nama: Arjuna Veetaraq -->
+
 <!DOCTYPE html>
 <html lang="id">
 

@@ -1,7 +1,5 @@
 <?php
 
-// NRP: 5026231227| Nama: Arjuna Veetaraq
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;

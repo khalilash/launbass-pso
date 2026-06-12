@@ -1,6 +1,4 @@
 <?php
-// NRP: 5026231021| Nama: Zaskia Muazatun M
-// NRP: 5026231227 | Nama: Arjuna Veetaraq
 
 namespace App\Http\Controllers;
 
@@ -20,12 +18,12 @@ class PesananController extends Controller
         $kategoris = DB::table('kategori_produk')
             ->select('IDKategori', 'Nama_Kategori')
             ->get();
-    
+
         $pakets = DB::table('paket')
             ->select('IDPaket', 'IDKategori', 'Jenis_Layanan', 'HargaPerKg')
             ->get()
             ->groupBy('IDKategori');
-    
+
         return view('pesanan.tambahpesanan', compact(
             'pelanggans',
             'kategoris',
@@ -79,7 +77,7 @@ class PesananController extends Controller
         //     'session_user_id' => session('user_id'),
         //     'insert' => $insert
         // ]);
-        
+
         try {
             $id = DB::table('pesanan')->insertGetId($insert);
         } catch (\Throwable $e) {

@@ -1,7 +1,4 @@
 <?php
-// NRP: 5026231206 | Nama: Rafael Dimas Khristianto
-// NRP: 5026231227 | Nama: Arjuna Veetaraq
-// Revised: DB-driven homepage + riwayat pesanan logic
 
 namespace App\Http\Controllers;
 

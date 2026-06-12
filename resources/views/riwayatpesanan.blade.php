@@ -1,4 +1,4 @@
-{{-- NRP: 5026231227 | Nama: Arjuna Veetaraq --}}
+
 <!DOCTYPE html>
 <html lang="id">
 
