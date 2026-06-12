@@ -1,0 +1,46 @@
+name: SonarCloud Code Coverage
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-and-scan:
+    name: Run Tests & SonarCloud Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Wajib untuk SonarCloud
+
+      - name: Setup PHP with PCOV (untuk coverage)
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2' # Sesuaikan dengan versi PHP proyek Anda
+          coverage: pcov 
+
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
+      - name: Prepare Laravel Application
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Run Tests & Generate Coverage Report
+        run: php artisan test --coverage-clover=coverage.xml
+
+      - name: Run SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=khalilash_launbass-pso
+            -Dsonar.organization=khalilash
+            -Dsonar.php.coverage.reportPaths=coverage.xml
+            -Dsonar.sources=app,routes
+            -Dsonar.tests=tests
