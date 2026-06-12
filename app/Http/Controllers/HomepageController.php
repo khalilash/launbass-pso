@@ -17,7 +17,7 @@ class HomepageController extends Controller
     public function index()
     {
         $rows = DB::table('pesanan as p')
-            ->leftJoin('pelanggan as c', 'c.IDPelanggan', '=', 'p.IDPelanggan')
+            ->leftJoin('pelanggan as c', 'c.id', '=', 'p.IDPelanggan')
             ->leftJoin('paket as pk', 'pk.IDPaket', '=', 'p.IDPaket')
             ->leftJoin('kategori_produk as kp', 'kp.IDKategori', '=', 'pk.IDKategori')
             ->where(function ($q) {
@@ -35,9 +35,9 @@ class HomepageController extends Controller
                 'p.Status_Pesanan',
                 'p.Tanggal_Masuk',
 
-                'c.Nama as pelanggan_nama',
-                'c.Nomor_HP as pelanggan_telepon',
-                'c.Alamat as pelanggan_alamat',
+                'c.nama as pelanggan_nama',
+                'c.telepon as pelanggan_telepon',
+                'c.alamat as pelanggan_alamat',
 
                 'pk.Jenis_Layanan as paket',
                 'kp.Nama_Kategori as kategori'
