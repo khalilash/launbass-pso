@@ -7,18 +7,23 @@ use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
-    public function up(): void
-    {
+
+public function up(): void
+{
+    if (!Schema::hasColumn('pelanggan', 'IDPelanggan')) {
+
         Schema::table('pelanggan', function (Blueprint $table) {
             $table->integer('IDPelanggan')->nullable();
         });
 
-        DB::statement("
-            UPDATE pelanggan
-            SET IDPelanggan = id
-            WHERE IDPelanggan IS NULL
-        ");
     }
+
+    DB::statement("
+        UPDATE pelanggan
+        SET IDPelanggan = id
+        WHERE IDPelanggan IS NULL
+    ");
+}
 
     public function down(): void
     {
