@@ -73,7 +73,7 @@ class PelangganController extends Controller
         $table = 'pelanggan';
 
         // Ambil data pelanggan yang akan diedit
-        $editData = DB::table($table)->where('IDPelanggan', $id)->first();
+        $editData = DB::table($table)->where('id', $id)->first();
 
         if (!$editData) {
             return redirect()->route('datapelanggan')->with('error', 'Pelanggan tidak ditemukan.');
@@ -102,7 +102,7 @@ class PelangganController extends Controller
         $table = 'pelanggan';
 
         try {
-            DB::table($table)->where('IDPelanggan', $id)->update([
+            DB::table($table)->where('id', $id)->update([
                 'Nama'           => $validated['Nama'],
                 'Email'          => $validated['Email'],
                 'Nomor_HP'       => $validated['Nomor_HP'],
@@ -127,7 +127,7 @@ class PelangganController extends Controller
         $table = 'pelanggan';
 
         try {
-            DB::table($table)->where('IDPelanggan', $id)->delete();
+            DB::table($table)->where('id', $id)->delete();
         } catch (\Throwable $e) {
             Log::error('Failed to delete pelanggan: '.$e->getMessage(), ['id' => $id]);
             return redirect()->route('datapelanggan')->with('error', 'Gagal menghapus pelanggan.');
@@ -145,7 +145,7 @@ class PelangganController extends Controller
 
         try {
             // Get current status
-            $pelanggan = DB::table($table)->where('IDPelanggan', $id)->first();
+            $pelanggan = DB::table($table)->where('id', $id)->first();
 
             if (!$pelanggan) {
                 return redirect()->route('datapelanggan')->with('error', 'Pelanggan tidak ditemukan.');
@@ -154,7 +154,7 @@ class PelangganController extends Controller
             // Toggle status (0 to 1, or 1 to 0)
             $newStatus = isset($pelanggan->aktif) && $pelanggan->aktif ? 0 : 1;
 
-            DB::table($table)->where('IDPelanggan', $id)->update([
+            DB::table($table)->where('id', $id)->update([
                 'aktif' => $newStatus,
             ]);
 

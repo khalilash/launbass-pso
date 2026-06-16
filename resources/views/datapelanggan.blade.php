@@ -159,16 +159,16 @@
                             <div class="profile-header">
                                 <div class="avatar"><i class="bi bi-person"></i></div>
                                 <div class="profile-info">
-                                    <div class="profile-name">{{ $data->Nama }}</div>
-                                    <div class="profile-address">{{ $data->Alamat }}</div>
-                                    <div class="profile-phone">Telepon: {{ $data->Nomor_HP }}</div>
+                                    <div class="profile-name">{{ $data->nama }}</div>
+                                    <div class="profile-address">{{ $data->alamat }}</div>
+                                    <div class="profile-phone">Telepon: {{ $data->telepon }}</div>
                                 </div>
                             </div>
 
                             <div class="profile-actions">
-                                <a href="{{ route('pelanggan.edit', $data->IDPelanggan) }}" class="action-btn">Ubah</a>
-                                <button class="action-btn" onclick="showStatusModal({{ $data->IDPelanggan }}, '{{ $data->Nama }}', {{ isset($data->aktif) && $data->aktif ? 'true' : 'false' }})">
-                                    {{ isset($data->aktif) && $data->aktif ? 'Non-Aktif' : 'Aktifkan' }}
+                                <a href="{{ route('pelanggan.edit', $data->id) }}" class="action-btn">Ubah</a>
+                                <button class="action-btn" onclick="showStatusModal({{ $data->id }}, '{{ $data->nama }}', {{ isset($data->aktif) && $data->aktif ? 'true' : 'false' }})">
+                                {{ isset($data->aktif) && $data->aktif ? 'Non-Aktif' : 'Aktifkan' }}
                                 </button>
                             </div>
                         </div>
@@ -200,8 +200,8 @@
             <div class="form-container">
                  <div class="form-card">
                      @if(isset($editData))
-                         <form method="POST" action="{{ route('pelanggan.update', $editData->IDPelanggan) }}">
-                             @method('PUT')
+                        <form method="POST" action="{{ route('pelanggan.update', $editData->id) }}">
+                     @method('PUT')
                      @else
                          <form method="POST" action="{{ route('pelanggan.store') }}">
                      @endif
@@ -211,7 +211,7 @@
                             <label class="form-label">Nama</label>
                             <input type="text" name="Nama" class="form-input"
                                 placeholder="Masukkan nama lengkap"
-                                value="{{ old('Nama', isset($editData) ? $editData->Nama : '') }}" required>
+                                value="{{ old('nama', isset($editData) ? $editData->nama : '') }}" required>
                             @error('Nama') <div class="error-text">{{ $message }}</div> @enderror
                         </div>
 
@@ -227,7 +227,7 @@
                             <label class="form-label">Nomor Telepon</label>
                             <input type="tel" name="Nomor_HP" class="form-input"
                                 placeholder="08xxxxxxxxxx"
-                                value="{{ old('Nomor_HP', isset($editData) ? $editData->Nomor_HP : '') }}" required>
+                                value="{{ old('Nomor_HP', isset($editData) ? $editData->telepon : '') }}" required>
                             @error('Nomor_HP') <div class="error-text">{{ $message }}</div> @enderror
                         </div>
 
@@ -246,12 +246,7 @@
                             <input
                                 type="date"
                                 name="Tanggal_Lahir"
-                                value="{{ old(
-                                    'Tanggal_Lahir',
-                                    isset($editData)
-                                        ? \Carbon\Carbon::parse($editData->Tanggal_Lahir)->format('Y-m-d')
-                                        : ''
-                                ) }}"
+                                value=""
                                 max="{{ date('Y-m-d') }}"
                                 required
                                 style="
@@ -278,7 +273,7 @@
                             <label class="form-label">Alamat</label>
                             <input type="text" name="Alamat" class="form-input"
                                 placeholder="Masukkan alamat lengkap"
-                                value="{{ old('Alamat', isset($editData) ? $editData->Alamat : '') }}" required>
+                                value="{{ old('Alamat', isset($editData) ? $editData->alamat : '') }}" required>
                             @error('Alamat') <div class="error-text">{{ $message }}</div> @enderror
                         </div>
 
