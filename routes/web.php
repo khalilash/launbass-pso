@@ -265,17 +265,6 @@ Route::post('/forgot-password/reset', [ForgotPasswordController::class, 'resetPa
     ->middleware('guest')
     ->name('password.update');
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PelangganController;
-use App\Http\Controllers\PesananController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\HomepageController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\KeuanganController;
-use App\Http\Controllers\PembayaranController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
