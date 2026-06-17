@@ -10,59 +10,37 @@ class PelangganControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-    }
-
     public function test_halaman_index_pelanggan_bisa_diakses()
     {
-        $response = $this->withSession(['user_id' => 1])->get('/pelanggan');
-        $response->assertStatus(200);
+        $this->withSession(['user_id' => 1])->get('/pelanggan')->assertStatus(200);
     }
 
     public function test_bisa_tambah_pelanggan_baru()
     {
-        $response = $this->withSession(['user_id' => 1])
-                         ->post('/pelanggan', [
-                             'Nama' => 'Budi Test',
-                             'Email' => 'budi@test.com',
-                             'Nomor_HP' => '0812345678',
-                             'Alamat' => 'Jl. Testing No. 1'
-                         ]);
+        $this->withSession(['user_id' => 1])->post('/pelanggan', [
+            'nama' => 'Budi',
+            'alamat' => 'SBY',
+            'telepon' => '0812345678'
+        ])->assertRedirect();
 
-        $response->assertRedirect();
-        // Cek database dengan nama kolom huruf kecil
-        $this->assertDatabaseHas('pelanggan', ['nama' => 'Budi Test']);
+        $this->assertDatabaseHas('pelanggan', ['nama' => 'Budi']);
     }
 
     public function test_bisa_edit_dan_update_pelanggan()
     {
-        DB::table('pelanggan')->insert([
-            'id' => 1, 'nama' => 'Lama', 'alamat' => 'Alamat Lama', 'telepon' => '123', 'email' => 'a@b.com', 'nomor_hp' => '123'
-        ]);
+        $id = DB::table('pelanggan')->insertGetId(['nama' => 'Lama', 'alamat' => 'A', 'telepon' => '1']);
 
-        $response = $this->withSession(['user_id' => 1])
-                         ->put('/pelanggan/1', [
-                             'Nama' => 'Baru',
-                             'Email' => 'a@b.com',
-                             'Nomor_HP' => '123',
-                             'Alamat' => 'Alamat Baru'
-                         ]);
+        $this->withSession(['user_id' => 1])->put('/pelanggan/'.$id, [
+            'nama' => 'Baru', 'alamat' => 'B', 'telepon' => '2'
+        ])->assertRedirect();
 
-        $response->assertRedirect();
         $this->assertDatabaseHas('pelanggan', ['nama' => 'Baru']);
     }
 
     public function test_bisa_toggle_status_aktif_nonaktif()
     {
-        DB::table('pelanggan')->insert([
-            'id' => 2, 'nama' => 'Status Test', 'aktif' => 1, 'alamat' => 'Jl. Test', 'telepon' => '1', 'email' => 'x@y.com', 'nomor_hp' => '1'
-        ]);
-
-        $this->withSession(['user_id' => 1])->patch('/pelanggan/2/toggle-status');
-
-        $this->assertDatabaseHas('pelanggan', ['id' => 2, 'aktif' => 0]);
+        $id = DB::table('pelanggan')->insertGetId(['nama' => 'A', 'alamat' => 'A', 'telepon' => '1', 'aktif' => 1]);
+        $this->withSession(['user_id' => 1])->patch('/pelanggan/'.$id.'/toggle-status');
+        $this->assertDatabaseHas('pelanggan', ['id' => $id, 'aktif' => 0]);
     }
 }
