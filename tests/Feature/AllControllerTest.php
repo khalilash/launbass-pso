@@ -13,7 +13,7 @@ class AllControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // Setup tabel lengkap sesuai migrasi dan kebutuhan controller
+        // Setup tabel lengkap
         DB::statement('CREATE TABLE IF NOT EXISTS user (IDUser INTEGER PRIMARY KEY AUTOINCREMENT, Nama TEXT, Email TEXT UNIQUE, Password TEXT, Jabatan TEXT)');
         DB::statement('CREATE TABLE IF NOT EXISTS pelanggan (id INTEGER PRIMARY KEY AUTOINCREMENT, nama TEXT, alamat TEXT, telepon TEXT, aktif INTEGER DEFAULT 1, created_at DATETIME, updated_at DATETIME)');
         DB::statement('CREATE TABLE IF NOT EXISTS kategori_produk (IDKategori INTEGER PRIMARY KEY AUTOINCREMENT, Nama_Kategori TEXT)');
@@ -28,7 +28,8 @@ class AllControllerTest extends TestCase
     public function test_pelanggan_controller()
     {
         $this->withSession(['user_id' => 1])->get('/pelanggan')->assertStatus(200);
-        $this->post('/pelanggan', ['Nama' => 'Budi', 'Email' => 'budi@test.com', 'Nomor_HP' => '123', 'Alamat' => 'SBY'])->assertRedirect();
+        // Menggunakan 'nama' sesuai database pelanggan
+        $this->post('/pelanggan', ['nama' => 'Budi', 'alamat' => 'SBY', 'telepon' => '123'])->assertRedirect();
         $this->assertDatabaseHas('pelanggan', ['nama' => 'Budi']);
     }
 
@@ -47,11 +48,9 @@ class AllControllerTest extends TestCase
     // --- 3. KEUANGAN ---
     public function test_keuangan_controller()
     {
-        // Test Pemasukan & Pengeluaran
         $this->withSession(['user_id' => 1])->post('/keuangan/pemasukan', ['jumlah' => 50000, 'catatan' => 'Test'])->assertRedirect();
         $this->withSession(['user_id' => 1])->post('/keuangan/pengeluaran', ['jumlah' => 10000, 'kategori' => 'Listrik', 'catatan' => 'Bayar'])->assertRedirect();
 
-        // Test Grafik & Aliran Kas
         $this->withSession(['user_id' => 1])->get('/grafik-keuangan')->assertStatus(200);
         $this->withSession(['user_id' => 1])->get('/aliran-kas')->assertStatus(200);
 
@@ -67,15 +66,18 @@ class AllControllerTest extends TestCase
         $this->assertDatabaseHas('pesanan', ['IDPesanan' => $id, 'Status_Pesanan' => 'Dibayar']);
     }
 
-    // --- 5. AUTH (REGISTER & FORGOT PASSWORD) ---
+    // --- 5. AUTH ---
     public function test_auth_controller()
     {
-        // Register
-        $this->post('/register', ['name' => 'User', 'email' => 'u@t.com', 'password' => 'secret123', 'password_confirmation' => 'secret123'])->assertRedirect('/home');
+        $uniqueEmail = 'user_' . uniqid() . '@test.com';
 
-        // Forgot Password Flow
-        DB::table('user')->insert(['Nama' => 'User', 'Email' => 'u@t.com', 'Password' => bcrypt('old')]);
-        $this->post('/forgot-password', ['email' => 'u@t.com']);
+        // Register
+        $this->post('/register', ['name' => 'User', 'email' => $uniqueEmail, 'password' => 'secret123', 'password_confirmation' => 'secret123'])->assertRedirect('/home');
+
+        // Forgot Password
+        DB::table('user')->insert(['Nama' => 'User', 'Email' => 'forgot_' . $uniqueEmail, 'Password' => bcrypt('old')]);
+        $this->post('/forgot-password', ['email' => 'forgot_' . $uniqueEmail]);
+
         $code = session('reset_code_for_testing');
         $this->post('/forgot-password/verify', ['code' => $code])->assertRedirect(route('password.reset'));
         $this->post('/forgot-password/reset', ['password' => 'new12345', 'password_confirmation' => 'new12345'])->assertRedirect(route('password.reset'));
