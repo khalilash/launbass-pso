@@ -88,6 +88,7 @@ class KeuanganController extends Controller
 
         $inDateCol = $inDate ?: 'created_at';
 
+        $exDateCol = $exDate ?: 'created_at';
         $incomeRows = DB::table('pemasukan')
     ->selectRaw("
         {$inDateCol} as tanggal,
