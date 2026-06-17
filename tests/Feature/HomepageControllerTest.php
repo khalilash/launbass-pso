@@ -57,7 +57,7 @@ class HomepageControllerTest extends TestCase
             'IDPelanggan' => 1,
             'IDPaket' => 1,
             'IDUser' => 1,
-            'Tipe_Pengiriman' => 'Delivery', // Test mapping jenis delivery
+            'Tipe_Pengiriman' => 'Delivery',
             'Status_Pesanan' => 'Diproses',
             'Tanggal_Masuk' => now()->toDateString(),
             'Berat_Kg' => 2,
@@ -80,17 +80,19 @@ class HomepageControllerTest extends TestCase
             'IDPelanggan' => 2, 'id' => 2, 'nama' => 'Pelanggan Selesai', 'telepon' => '0822', 'alamat' => 'SBY'
         ]);
 
-        // Buat 1 pesanan "Selesai"
+        // Buat 1 pesanan "Selesai" DENGAN DATA YANG SUPER LENGKAP
         DB::table('pesanan')->insert([
             'IDPesanan' => 2,
             'IDPelanggan' => 2,
             'IDPaket' => 2,
             'IDUser' => 1,
-            'Tipe_Pengiriman' => 'Pickup', // Test mapping jenis pickup
+            'Tipe_Pengiriman' => 'Pickup',
             'Status_Pesanan' => 'Selesai',
             'Tanggal_Masuk' => now()->toDateString(),
             'Tanggal_Keluar' => now()->toDateString(),
-            'Total_Biaya' => 50000
+            'Total_Biaya' => 50000,
+            'Berat_Kg' => 2,        // INI YANG MEMBUAT CRASH TADI
+            'Jumlah_Pcs' => 5       // INI JUGA DILENGKAPI
         ]);
 
         $response = $this->withSession(['user_id' => 1])->get('/riwayat-pesanan');
@@ -132,17 +134,16 @@ class HomepageControllerTest extends TestCase
     public function test_fitur_tandai_pesanan_selesai()
     {
         DB::table('pesanan')->insert([
-            'IDPesanan' => 2,
-            'IDPelanggan' => 2,
-            'IDPaket' => 2,
+            'IDPesanan' => 10,
             'IDUser' => 1,
-            'Tipe_Pengiriman' => 'Pickup',
-            'Status_Pesanan' => 'Selesai',
+            'IDPelanggan' => 1,
+            'IDPaket' => 1,
+            'Status_Pesanan' => 'Diproses',
             'Tanggal_Masuk' => now()->toDateString(),
-            'Tanggal_Keluar' => now()->toDateString(),
-            'Total_Biaya' => 50000,
-            'Berat_Kg' => 2,
-            'Jumlah_Pcs' => 5
+            'Total_Biaya' => 15000,
+            'Berat_Kg' => 1,
+            'Jumlah_Pcs' => 1,
+            'Tipe_Pengiriman' => 'Ambil Sendiri'
         ]);
 
         // Hit endpoint untuk mengubah status menjadi selesai
