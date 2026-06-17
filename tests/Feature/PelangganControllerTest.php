@@ -13,7 +13,7 @@ class PelangganControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // Samakan skema dengan apa yang dipanggil di Controller
+        // Update skema tabel agar memiliki semua kolom yang digunakan controller
         DB::statement('
             CREATE TABLE IF NOT EXISTS pelanggan (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -45,6 +45,8 @@ class PelangganControllerTest extends TestCase
 
         // Cek redirect (302)
         $response->assertStatus(302);
+
+        // Cek apakah data masuk dengan nama kolom 'nama' (sesuai insert di Controller)
         $this->assertDatabaseHas('pelanggan', ['nama' => 'Budi Test']);
     }
 
