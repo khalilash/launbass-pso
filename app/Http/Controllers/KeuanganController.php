@@ -313,7 +313,7 @@ $expenseRows = DB::table('pengeluaran')
         return redirect()->route('keuangan')->with('status','Pemasukan ditambahkan. Biaya Rp20.000 tercatat.');
     }
 
-    public function quickAddIncome(Request $request)
+    public function quickAddIncome()
     {
         if (!session()->has('user_id')) {
             return redirect('/login');
