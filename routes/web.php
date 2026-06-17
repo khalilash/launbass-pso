@@ -9,7 +9,7 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\PembayaranController;
-
+use App\Http\Controllers\DemoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -218,6 +218,14 @@ Route::patch('/pesanan/{id}/restore', function ($id) {
 
     return app(HomepageController::class)->restore($id);
 })->name('pesanan.restore');
+
+// ============================
+// RESTORE PESANAN (UNDO SELESAI)
+// ============================
+Route::get(
+    '/demo-export',
+    [DemoController::class, 'exportCsv']
+)->name('demo.export');
 
 
 /* ============================
