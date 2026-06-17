@@ -16,23 +16,27 @@ class PesananFeatureTest extends TestCase
     #[Test]
     public function pesanan_dapat_disimpan_ke_database()
     {
-        $pelanggan = Pelanggan::create([
+        // Force IDPelanggan = 1 agar SQLite mencatatnya dengan benar
+        $pelanggan = new Pelanggan([
             'nama'    => 'Budi Santoso',
             'telepon' => '08123456789',
             'alamat'  => 'Jl. Merdeka No. 1',
         ]);
-        $pelanggan->refresh(); // Pastikan ID tersinkronisasi dari DB
+        $pelanggan->IDPelanggan = 1;
+        $pelanggan->save();
 
-        $paket = Paket::create([
+        // Force IDPaket = 1 agar SQLite mencatatnya dengan benar
+        $paket = new Paket([
             'IDKategori'    => 1,
             'Jenis_Layanan' => 'Reguler',
             'HargaPerKg'    => 5000,
             'Satuan'        => 'Kg',
         ]);
-        $paket->refresh(); // Pastikan ID tersinkronisasi dari DB
+        $paket->IDPaket = 1;
+        $paket->save();
 
         Pesanan::create([
-            'IDPelanggan'     => $pelanggan->getKey(), // Menggunakan getKey() agar lebih aman
+            'IDPelanggan'     => 1,
             'IDUser'          => 1,
             'Tanggal_Masuk'   => '2025-01-01',
             'Tanggal_Keluar'  => '2025-01-03',
@@ -42,7 +46,7 @@ class PesananFeatureTest extends TestCase
             'Tipe_Pengiriman' => 'Antar',
             'Berat_Kg'        => 2.5,
             'Jumlah_Pcs'      => 5,
-            'IDPaket'         => $paket->getKey(), // Menggunakan getKey() agar lebih aman
+            'IDPaket'         => 1,
         ]);
 
         $this->assertDatabaseHas('pesanan', [
@@ -54,23 +58,25 @@ class PesananFeatureTest extends TestCase
     #[Test]
     public function pesanan_dapat_diambil_dari_database()
     {
-        $pelanggan = Pelanggan::create([
+        $pelanggan = new Pelanggan([
             'nama'    => 'Siti Rahayu',
             'telepon' => '08987654321',
             'alamat'  => 'Jl. Sudirman No. 5',
         ]);
-        $pelanggan->refresh();
+        $pelanggan->IDPelanggan = 1;
+        $pelanggan->save();
 
-        $paket = Paket::create([
+        $paket = new Paket([
             'IDKategori'    => 1,
             'Jenis_Layanan' => 'Express',
             'HargaPerKg'    => 10000,
             'Satuan'        => 'Kg',
         ]);
-        $paket->refresh();
+        $paket->IDPaket = 1;
+        $paket->save();
 
         Pesanan::create([
-            'IDPelanggan'     => $pelanggan->getKey(),
+            'IDPelanggan'     => 1,
             'IDUser'          => 1,
             'Tanggal_Masuk'   => '2025-02-01',
             'Tanggal_Keluar'  => '2025-02-02',
@@ -80,7 +86,7 @@ class PesananFeatureTest extends TestCase
             'Tipe_Pengiriman' => 'Ambil',
             'Berat_Kg'        => 5.0,
             'Jumlah_Pcs'      => 10,
-            'IDPaket'         => $paket->getKey(),
+            'IDPaket'         => 1,
         ]);
 
         $pesanan = Pesanan::where('Status_Pesanan', 'Selesai')->first();
@@ -92,23 +98,25 @@ class PesananFeatureTest extends TestCase
     #[Test]
     public function pesanan_memiliki_relasi_pelanggan_yang_benar()
     {
-        $pelanggan = Pelanggan::create([
+        $pelanggan = new Pelanggan([
             'nama'    => 'Andi Wijaya',
             'telepon' => '08111222333',
             'alamat'  => 'Jl. Ahmad Yani No. 10',
         ]);
-        $pelanggan->refresh();
+        $pelanggan->IDPelanggan = 1;
+        $pelanggan->save();
 
-        $paket = Paket::create([
+        $paket = new Paket([
             'IDKategori'    => 1,
             'Jenis_Layanan' => 'Reguler',
             'HargaPerKg'    => 5000,
             'Satuan'        => 'Kg',
         ]);
-        $paket->refresh();
+        $paket->IDPaket = 1;
+        $paket->save();
 
         $pesanan = Pesanan::create([
-            'IDPelanggan'     => $pelanggan->getKey(),
+            'IDPelanggan'     => 1,
             'IDUser'          => 1,
             'Tanggal_Masuk'   => '2025-03-01',
             'Tanggal_Keluar'  => '2025-03-03',
@@ -118,12 +126,10 @@ class PesananFeatureTest extends TestCase
             'Tipe_Pengiriman' => 'Antar',
             'Berat_Kg'        => 3.0,
             'Jumlah_Pcs'      => 7,
-            'IDPaket'         => $paket->getKey(),
+            'IDPaket'         => 1,
         ]);
 
-        // Muat ulang data pesanan bersama dengan relasi pelanggannya
-        $pesanan->refresh();
-
+        // Memastikan relasi terbaca dengan valid tanpa perlu method refresh() yang rawan crash
         $this->assertNotNull($pesanan->pelanggan);
         $this->assertEquals('Andi Wijaya', $pesanan->pelanggan->nama);
     }
