@@ -336,8 +336,9 @@
      data-date="{{ $dateStr }}"
      data-jumlah="{{ $row->jumlah }}"
      data-kategori="{{ $row->kategori }}"
-     data-user="{{ $row->user_id }}"
-     
+     data-catatan="{{ $row->catatan }}"
+     data-user="{{ $row->user_id }}">
+
             <div class="list-left">
                 <div class="code">{{ strtoupper($row->tipe) }}</div>
                 <div class="amount {{ $amtClass }}">Rp {{ number_format((int)$row->jumlah, 0, ',', '.') }}</div>
