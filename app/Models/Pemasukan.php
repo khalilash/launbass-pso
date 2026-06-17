@@ -9,10 +9,9 @@ class Pemasukan extends Model
     protected $primaryKey = 'IDPemasukan';
     public $timestamps = false;
     protected $fillable = [
-        'IDPesanan',
-        'IDUser',
-        'IDPelanggan',
-        'Jumlah',
-        'Tanggal_Transaksi',
-    ];
+    'Jumlah',
+    'Tanggal_Transaksi',
+    'IDUser',
+    'Catatan',
+];
 }

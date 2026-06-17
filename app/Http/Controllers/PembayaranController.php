@@ -15,53 +15,43 @@ class PembayaranController extends Controller
     }
 
     public function processCash(Request $request, $id)
-    {
-        $request->validate([
-            'total' => 'required|numeric|min:0',
-            'uang_diterima' => 'required|numeric|min:0',
-        ]);
+{
+    $request->validate([
+        'total' => 'required|numeric|min:0',
+        'uang_diterima' => 'required|numeric|min:0',
+    ]);
 
-        $pesanan = Pesanan::where('IDPesanan', $id)->firstOrFail();
+    $pesanan = Pesanan::where('IDPesanan', $id)->firstOrFail();
 
-        Pemasukan::create([
-            'IDPesanan' => $id,
-            'IDUser' => session('user_id') ?? null,
-            'Jumlah' => $request->input('total'),
-            'Tanggal_Transaksi' => now(),
-            'IDPelanggan' => $pesanan->IDPelanggan,
-            'IDMetode_Pembayaran' => 1, // cash
-        ]);
+    Pemasukan::create([
+        'IDUser' => session('user_id') ?? 1,
+        'Jumlah' => $request->input('total'),
+        'Tanggal_Transaksi' => now(),
+        'Catatan' => 'Pembayaran Cash Pesanan #' . $id,
+    ]);
 
-        $pesanan->Status_Pesanan = 'Dibayar';
-        $pesanan->save();
+    $pesanan->Status_Pesanan = 'Dibayar';
+    $pesanan->save();
 
-        return redirect()->route('pembayaran.berhasil', ['id' => $id]);
-    }
-
-    public function qrisForm($id)
-    {
-        $pesanan = Pesanan::where('IDPesanan', $id)->firstOrFail();
-        return view('pesanan.pembayaran_qris', compact('pesanan'));
-    }
+    return redirect()->route('pembayaran.berhasil', ['id' => $id]);
+}
 
     public function processQris(Request $request, $id)
-    {
-        $pesanan = Pesanan::where('IDPesanan', $id)->firstOrFail();
+{
+    $pesanan = Pesanan::where('IDPesanan', $id)->firstOrFail();
 
-        Pemasukan::create([
-            'IDPesanan' => $id,
-            'IDUser' => session('user_id') ?? null,
-            'Jumlah' => $pesanan->Total_Biaya ?? $request->input('total', 0),
-            'Tanggal_Transaksi' => now(),
-            'IDPelanggan' => $pesanan->IDPelanggan,
-            'IDMetode_Pembayaran' => 2, // QRIS
-        ]);
+    Pemasukan::create([
+        'IDUser' => session('user_id') ?? 1,
+        'Jumlah' => $pesanan->Total_Biaya,
+        'Tanggal_Transaksi' => now(),
+        'Catatan' => 'Pembayaran QRIS Pesanan #' . $id,
+    ]);
 
-        $pesanan->Status_Pesanan = 'Dibayar';
-        $pesanan->save();
+    $pesanan->Status_Pesanan = 'Dibayar';
+    $pesanan->save();
 
-        return redirect()->route('pembayaran.berhasil', ['id' => $id]);
-    }
+    return redirect()->route('pembayaran.berhasil', ['id' => $id]);
+}
 
     public function pembayaranBerhasil($id)
     {
