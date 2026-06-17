@@ -254,7 +254,7 @@
       font-weight: 500;
     }
 
-    @include('layouts.nav-styles');
+    @include('layouts.nav-styles')
   </style>
 </head>
 <body>
