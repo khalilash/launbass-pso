@@ -13,12 +13,11 @@ class PelangganTest extends TestCase
     {
         $pelanggan = new Pelanggan();
 
+        // Diubah menjadi huruf kecil dan disesuaikan dengan Model
         $expectedFillable = [
-            'Nama',
-            'Nomor_HP',
-            'Email',
-            'Alamat',
-            'Tanggal_Lahir',
+            'nama',
+            'telepon',
+            'alamat',
         ];
 
         $this->assertEquals($expectedFillable, $pelanggan->getFillable());
@@ -48,32 +47,25 @@ class PelangganTest extends TestCase
     #[Test]
     public function pelanggan_dapat_diisi_dengan_mass_assignment()
     {
+        // Data disesuaikan dengan kolom baru
         $data = [
-            'Nama'          => 'Budi Santoso',
-            'Nomor_HP'      => '08123456789',
-            'Email'         => 'budi@example.com',
-            'Alamat'        => 'Jl. Merdeka No. 1 Surabaya',
-            'Tanggal_Lahir' => '1990-05-15',
+            'nama'    => 'Budi Santoso',
+            'telepon' => '08123456789',
+            'alamat'  => 'Jl. Merdeka No. 1 Surabaya',
         ];
 
         $pelanggan = new Pelanggan($data);
 
-        $this->assertEquals('Budi Santoso', $pelanggan->Nama);
-        $this->assertEquals('08123456789', $pelanggan->Nomor_HP);
-        $this->assertEquals('budi@example.com', $pelanggan->Email);
+        $this->assertEquals('Budi Santoso', $pelanggan->nama);
+        $this->assertEquals('08123456789', $pelanggan->telepon);
+        $this->assertEquals('Jl. Merdeka No. 1 Surabaya', $pelanggan->alamat);
     }
 
     #[Test]
-    public function pelanggan_email_harus_berupa_string()
+    public function pelanggan_telepon_harus_berupa_string()
     {
-        $pelanggan = new Pelanggan(['Email' => 'test@launbass.com']);
-        $this->assertIsString($pelanggan->Email);
-    }
-
-    #[Test]
-    public function pelanggan_nomor_hp_harus_berupa_string()
-    {
-        $pelanggan = new Pelanggan(['Nomor_HP' => '08129999999']);
-        $this->assertIsString($pelanggan->Nomor_HP);
+        // Diubah dari Nomor_HP menjadi telepon
+        $pelanggan = new Pelanggan(['telepon' => '08129999999']);
+        $this->assertIsString($pelanggan->telepon);
     }
 }

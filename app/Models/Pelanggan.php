@@ -15,6 +15,9 @@ class Pelanggan extends Model
     // Pastikan primary key benar jika bukan 'id'
     protected $primaryKey = 'IDPelanggan';
 
+    // TAMBAHKAN BARIS INI agar test "timestamps dinonaktifkan" berhasil (PASS)
+    public $timestamps = false;
+
     // INI BAGIAN YANG PALING PENTING
     protected $fillable = [
         'nama',      // Pastikan ini menggunakan huruf kecil sesuai test/migrasi
