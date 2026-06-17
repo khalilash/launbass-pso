@@ -87,16 +87,30 @@ class KeuanganController extends Controller
         $exDate = $this->detectColumn('pengeluaran', ['Tanggal_Pengeluaran','tanggal_pengeluaran','Tanggal_Transaksi','tanggal_transaksi','Tanggal','created_at'], 'Tanggal_Pengeluaran');
 
         $inDateCol = $inDate ?: 'created_at';
-        $incomeRows = DB::table('pemasukan')
-            ->selectRaw("{$inDateCol} as tanggal, {$inAmt} as jumlah, 'pemasukan' as tipe")
-            ->orderByDesc($inDateCol)
-            ->limit(30);
 
-        $exDateCol = $exDate ?: 'created_at';
-        $expenseRows = DB::table('pengeluaran')
-            ->selectRaw("{$exDateCol} as tanggal, {$exAmt} as jumlah, 'pengeluaran' as tipe")
-            ->orderByDesc($exDateCol)
-            ->limit(30);
+        $incomeRows = DB::table('pemasukan')
+    ->selectRaw("
+        {$inDateCol} as tanggal,
+        {$inAmt} as jumlah,
+        Catatan as catatan,
+        IDUser as user_id,
+        'Pemasukan' as kategori,
+        'pemasukan' as tipe
+    ")
+    ->orderByDesc($inDateCol)
+    ->limit(30);
+
+$expenseRows = DB::table('pengeluaran')
+    ->selectRaw("
+        {$exDateCol} as tanggal,
+        {$exAmt} as jumlah,
+        Catatan as catatan,
+        Kategori as kategori,
+        IDUser as user_id,
+        'pengeluaran' as tipe
+    ")
+    ->orderByDesc($exDateCol)
+    ->limit(30);
 
         $history = DB::query()
             ->fromSub($incomeRows->unionAll($expenseRows), 't')

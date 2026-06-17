@@ -331,8 +331,15 @@
         @if(isset($history) && count($history))
           @foreach($history as $row)
             @php $isIncome = ($row->tipe === 'pemasukan'); $amtClass = $isIncome ? 'pos' : 'neg'; $ts = $row->tanggal ? strtotime($row->tanggal) : null; $dateStr = $ts ? date('d/m/Y', $ts) : '-'; @endphp
-            <div class="list-card" data-code="{{ strtoupper($row->tipe) }}" data-date="{{ $dateStr }}">
-              <div class="list-left">
+<div class="list-card"
+     data-code="{{ strtoupper($row->tipe) }}"
+     data-date="{{ $dateStr }}"
+     data-jumlah="{{ $row->jumlah }}"
+     data-kategori="{{ $row->kategori }}"
+     data-user="{{ $row->user_id }}"
+     style="border:2px solid red">
+
+            <div class="list-left">
                 <div class="code">{{ strtoupper($row->tipe) }}</div>
                 <div class="amount {{ $amtClass }}">Rp {{ number_format((int)$row->jumlah, 0, ',', '.') }}</div>
               </div>
@@ -370,12 +377,27 @@
               <span id="dDate" class="date-chip">-</span>
             </div>
 
-            <div class="detail-row"><span class="label">Nama</span><span id="dName" class="value">-</span></div>
-            <div class="detail-row"><span class="label">No Telp</span><span id="dPhone" class="value">-</span></div>
-            <div class="detail-row"><span class="label">Alamat</span><span id="dAddress" class="value">-</span></div>
-            <div class="detail-row"><span class="label">Kategori Produk</span><span id="dCategory" class="value">-</span></div>
-            <div class="detail-row"><span class="label">Ongkir</span><span id="dShipping" class="value">-</span></div>
-            <div class="detail-row"><span class="label">Kasir</span><span id="dCashier" class="value">-</span></div>
+        <div class="detail-row">
+    <span class="label">Jumlah</span>
+    <span id="dJumlah" class="value">-</span>
+</div>
+
+<div class="detail-row">
+    <span class="label">Kategori</span>
+    <span id="dKategori" class="value">-</span>
+</div>
+
+<div class="detail-row">
+    <span class="label">Catatan</span>
+    <span id="dCatatan" class="value">-</span>
+</div>
+
+<div class="detail-row">
+    <span class="label">ID User</span>
+    <span id="dUser" class="value">-</span>
+</div>
+
+
           </div>
         </div>
       </div>
@@ -471,22 +493,33 @@
     function showDetail(card){
       const code = card.dataset.code || '-';
       const date = card.dataset.date || '-';
-      const name = card.dataset.name || '-';
-      const phone = card.dataset.phone || '-';
-      const address = (card.dataset.address || '-').replace(/\n/g,'<br>');
-      const category = card.dataset.category || '-';
-      const dist = parseFloat(card.dataset.distance||'0');
-      const rate = parseInt(card.dataset.rate||'0',10);
-      const ship = dist * rate;
 
-      document.getElementById('dOrder').textContent = code;
-      document.getElementById('dDate').textContent = date;
-      document.getElementById('dName').textContent = name;
-      document.getElementById('dPhone').textContent = phone;
-      document.getElementById('dAddress').innerHTML = address;
-      document.getElementById('dCategory').textContent = category;
-      document.getElementById('dCashier').textContent = card.dataset.cashier || '-';
-      document.getElementById('dShipping').textContent = `${dist.toFixed(2)} KM @${rate} = ${rupiah(ship)}`;
+      const jumlah = card.dataset.jumlah || '0';
+      const kategori = card.dataset.kategori || '-';
+      const catatan = card.dataset.catatan || '-';
+      const user = card.dataset.user || '-';
+
+        console.log({
+    jumlah,
+    kategori,
+    catatan,
+    user
+});
+
+        document.getElementById('dOrder').textContent = code;
+document.getElementById('dDate').textContent = date;
+
+document.getElementById('dJumlah').textContent =
+    rupiah(parseFloat(jumlah));
+
+document.getElementById('dKategori').textContent =
+    kategori;
+
+document.getElementById('dCatatan').textContent =
+    catatan;
+
+document.getElementById('dUser').textContent =
+    user;
 
       modal.show();
     }
