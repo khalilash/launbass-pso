@@ -10,7 +10,10 @@
 ## Kelompok 9 PSO C
 Nabila Rahadatul - 5026231025
 Zaskia Muazatun - 5026231021
-Khalila Shafarayhani - 5026231167
+Khalila Shafarayhani A - 5026231167
+
+## Domain Azure
+launbass-v2-pso-d8b9h7ejd6eaeudy.southeastasia-01.azurewebsites.net
 
 ## Apps Description
 Launbass memberikan layanan digitalisasi dalam proses bisnis dari usaha laundry, yang memungkinkan pemilik memantau seluruh proses dari penerimaan baju sampai pengambilan baju, detail pesanan dan juga pencacatan keuangan yang ada. Aplikasi memiliki beberapa fitur unggulan seperti chat interaktif dan juga integrasi pencatatan sistem keuangan yang dilengkapi dengan informasi pekerja yang bertugas pada saat itu. Tujuan utama dari aplikasi ini adalah memberikan pengalaman digital laundry yang terintegrasi dan memuaskan melalui sistem yang mudah digunakan, efisien juga informatif bagi pemilik laundry. Latar belakang tujuan ini berdasar dari masalah umum dimana sulit mengatur jadwal pengambilan dan pengantaran baju, juga tidak adanya integrasi proses laundry dari tiap pelanggan apabila terjadi pergantian shift.
