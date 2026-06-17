@@ -87,10 +87,11 @@ Route::get('/keuangan', function () {
     return app(KeuanganController::class)->index();
 })->name('keuangan');
 
-Route::post('/keuangan/pemasukan', function () {
+Route::post('/keuangan/pemasukan', function (\Illuminate\Http\Request $request) {
     if (!session()->has('user_id'))
         return redirect('/login');
-    return app(KeuanganController::class)->storeIncome();
+
+    return app(KeuanganController::class)->storeIncome($request);
 })->name('keuangan.pemasukan.store');
 
 Route::post('/keuangan/pemasukan/quick', function () {
@@ -99,10 +100,11 @@ Route::post('/keuangan/pemasukan/quick', function () {
     return app(KeuanganController::class)->quickAddIncome();
 })->name('keuangan.pemasukan.quick');
 
-Route::post('/keuangan/pengeluaran', function () {
+Route::post('/keuangan/pengeluaran', function (\Illuminate\Http\Request $request) {
     if (!session()->has('user_id'))
         return redirect('/login');
-    return app(KeuanganController::class)->storeExpense();
+
+    return app(KeuanganController::class)->storeExpense($request);
 })->name('keuangan.pengeluaran.store');
 
 Route::get('/grafik-keuangan', function () {

@@ -12,7 +12,7 @@ class PesananController extends Controller
     {
         $pelanggans = DB::table('pelanggan')
             ->where('aktif', 1)
-            ->select('IDPelanggan as id', 'Nama as nama')
+            ->select('id', 'nama')
             ->get();
 
         $kategoris = DB::table('kategori_produk')
@@ -81,10 +81,12 @@ class PesananController extends Controller
         try {
             $id = DB::table('pesanan')->insertGetId($insert);
         } catch (\Throwable $e) {
-            Log::error('Failed to insert pesanan: ' . $e->getMessage(), ['payload' => $insert]);
-            return redirect()->route('tambahpesanan')
-                ->withInput()
-                ->with('error', 'Gagal menyimpan pesanan.');
+
+    dd([
+        'error' => $e->getMessage(),
+        'payload' => $insert
+    ]);
+
 }
 
 return redirect()->route('pesanan.detail', $id)
