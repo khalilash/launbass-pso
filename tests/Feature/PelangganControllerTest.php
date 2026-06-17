@@ -13,7 +13,7 @@ class PelangganControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // Pastikan tabel pelanggan ada untuk testing
+        // Samakan skema dengan apa yang dipanggil di Controller
         DB::statement('
             CREATE TABLE IF NOT EXISTS pelanggan (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -43,7 +43,8 @@ class PelangganControllerTest extends TestCase
                              'Alamat' => 'Jl. Testing No. 1'
                          ]);
 
-        $response->assertRedirect();
+        // Cek redirect (302)
+        $response->assertStatus(302);
         $this->assertDatabaseHas('pelanggan', ['nama' => 'Budi Test']);
     }
 
@@ -61,14 +62,14 @@ class PelangganControllerTest extends TestCase
                              'Alamat' => 'Alamat Baru'
                          ]);
 
-        $response->assertRedirect();
+        $response->assertStatus(302);
         $this->assertDatabaseHas('pelanggan', ['nama' => 'Baru']);
     }
 
     public function test_bisa_toggle_status_aktif_nonaktif()
     {
         DB::table('pelanggan')->insert([
-            'id' => 2, 'nama' => 'Status Test', 'aktif' => 1
+            'id' => 2, 'nama' => 'Status Test', 'aktif' => 1, 'alamat' => 'Jl. Test', 'telepon' => '1', 'Email' => 'x@y.com', 'Nomor_HP' => '1'
         ]);
 
         $this->withSession(['user_id' => 1])->patch('/pelanggan/2/toggle-status');
