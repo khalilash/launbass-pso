@@ -18,6 +18,7 @@ class PelangganTest extends TestCase
             'nama',
             'telepon',
             'alamat',
+            'aktif',
         ];
 
         $this->assertEquals($expectedFillable, $pelanggan->getFillable());
