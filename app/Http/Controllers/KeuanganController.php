@@ -172,20 +172,36 @@ class KeuanganController extends Controller
         $exDate = $this->detectColumn('pengeluaran', ['Tanggal_Pengeluaran','tanggal_pengeluaran','Tanggal_Transaksi','tanggal_transaksi','Tanggal','created_at'], 'Tanggal_Pengeluaran');
         $exCat = $this->detectColumn('pengeluaran', ['Kategori','kategori','Kategori_Pengeluaran','kategori_pengeluaran','Jenis','jenis','Nama','nama'], 'Kategori');
 
-        $out = DB::table('pengeluaran')
-            ->selectRaw("YEAR({$exDate}) as y, MONTH({$exDate}) as m, {$exCat} as kategori, SUM({$exAmt}) as total")
-            ->groupBy('y','m','kategori')
-            ->orderBy('y')
-            ->orderBy('m')
-            ->get();
+       $out = DB::table('pengeluaran')
+    ->selectRaw("
+        CAST(strftime('%Y', {$exDate}) AS INTEGER) as y,
+        CAST(strftime('%m', {$exDate}) AS INTEGER) as m,
+        {$exCat} as kategori,
+        SUM({$exAmt}) as total
+    ")
+    ->groupByRaw("
+        strftime('%Y', {$exDate}),
+        strftime('%m', {$exDate}),
+        {$exCat}
+    ")
+    ->orderBy('y')
+    ->orderBy('m')
+    ->get();
 
         $inAmt = $this->detectColumn('pemasukan', ['Jumlah','jumlah','nominal','nilai'], 'Jumlah');
         $inDate = $this->detectColumn('pemasukan', ['Tanggal_Transaksi','tanggal_transaksi','Tanggal','created_at'], 'Tanggal_Transaksi');
 
         $in = DB::table('pemasukan')
-            ->selectRaw("YEAR({$inDate}) as y, MONTH({$inDate}) as m, SUM({$inAmt}) as total")
-            ->groupBy('y','m')
-            ->get();
+    ->selectRaw("
+        CAST(strftime('%Y', {$inDate}) AS INTEGER) as y,
+        CAST(strftime('%m', {$inDate}) AS INTEGER) as m,
+        SUM({$inAmt}) as total
+    ")
+    ->groupByRaw("
+        strftime('%Y', {$inDate}),
+        strftime('%m', {$inDate})
+    ")
+    ->get();
 
         $years = [];
         foreach ($out as $r) { $years[] = (int)$r->y; }
