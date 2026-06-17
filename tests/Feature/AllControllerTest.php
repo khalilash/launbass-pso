@@ -113,4 +113,37 @@ class AllControllerTest extends TestCase
         $this->withSession(['user_id' => 1])->get('/datapelanggan');
         $this->withSession(['user_id' => 1])->get('/tambahpesanan');
     }
+    // --- TAMBAHAN UNTUK PESANAN CONTROLLER ---
+    public function test_pesanan_store_validation_failures()
+    {
+        // 1. Tes jika input tidak valid (misal: berat kurang dari 0.1)
+        $this->withSession(['user_id' => 1])
+             ->post('/pesanan', [
+                 'pelanggan_id' => 1,
+                 'paket_id' => 1,
+                 'jumlah' => 1,
+                 'berat' => 0.0, // Harus min 0.1
+                 'pengiriman' => 'Pickup'
+             ])
+             ->assertSessionHasErrors('berat');
+
+        // 2. Tes jika pelanggan tidak ada
+        $this->withSession(['user_id' => 1])
+             ->post('/pesanan', [
+                 'pelanggan_id' => 9999, // Tidak ada di DB
+                 'paket_id' => 1,
+                 'jumlah' => 1,
+                 'berat' => 1.0,
+                 'pengiriman' => 'Pickup'
+             ])
+             ->assertSessionHasErrors('pelanggan_id');
+    }
+
+    public function test_show_pesanan_tidak_ditemukan()
+    {
+        // Akses detail pesanan yang tidak ada (memicu redirect ke home)
+        $this->withSession(['user_id' => 1])
+             ->get('/pesanan/9999/detail')
+             ->assertRedirect(route('home'));
+    }
 }
