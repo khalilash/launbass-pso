@@ -10,6 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
+@include('layouts.nav-styles')
+
 <style>
 :root {
     --primary: #0d9488;
@@ -21,11 +23,12 @@
 body {
     margin: 0;
     padding: 0;
+    padding-bottom: 100px;
     font-family: 'Poppins', sans-serif;
     background: var(--bg-main);
     display: flex;
     justify-content: center;
-    padding: 60px 0;
+    padding-top: 60px;
 }
 
 .mobile-container {
@@ -137,5 +140,8 @@ input[type=number]::-webkit-outer-spin-button {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+@include('layouts.navbar')
+
 </body>
 </html>

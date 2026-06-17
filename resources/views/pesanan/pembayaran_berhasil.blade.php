@@ -10,6 +10,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+@include('layouts.nav-styles')
+
 <style>
 :root {
     --primary: #0d9488;
@@ -20,8 +22,9 @@
 }
 
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+    padding: 20px;
+    padding-bottom: 110px;
     font-family: 'Poppins', sans-serif;
     background: var(--bg-main);
     display: flex;
@@ -142,5 +145,7 @@ body {
     </button>
 
 </div>
+@include('layouts.navbar')
+
 </body>
 </html>
