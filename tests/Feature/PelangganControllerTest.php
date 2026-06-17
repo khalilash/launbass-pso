@@ -13,18 +13,7 @@ class PelangganControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // Paksa pembuatan tabel dengan nama kolom huruf kecil semua
-        DB::statement('
-            CREATE TABLE pelanggan (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                nama TEXT,
-                alamat TEXT,
-                telepon TEXT,
-                email TEXT,
-                nomor_hp TEXT,
-                aktif INTEGER DEFAULT 1
-            )
-        ');
+
     }
 
     public function test_halaman_index_pelanggan_bisa_diakses()
