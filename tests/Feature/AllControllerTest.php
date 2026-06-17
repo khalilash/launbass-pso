@@ -82,4 +82,23 @@ class AllControllerTest extends TestCase
         $this->post('/forgot-password/verify', ['code' => $code])->assertRedirect(route('password.reset'));
         $this->post('/forgot-password/reset', ['password' => 'new12345', 'password_confirmation' => 'new12345'])->assertRedirect(route('password.reset'));
     }
+    // --- 6. ROUTES COVERAGE ---
+    public function test_route_coverage()
+    {
+        // 1. Publik
+        $this->get('/splash')->assertStatus(200);
+        $this->get('/login')->assertStatus(200);
+        $this->get('/register')->assertStatus(200);
+
+        // 2. Proteksi (Memastikan akses tanpa session redirect ke login)
+        $this->get('/home')->assertRedirect('/login');
+        $this->get('/riwayat-pesanan')->assertRedirect('/login');
+        $this->get('/keuangan')->assertRedirect('/login');
+        $this->get('/tambahpesanan')->assertRedirect('/login');
+        $this->get('/datapelanggan')->assertRedirect('/login');
+
+        // 3. Forgot Password
+        $this->get('/forgot-password')->assertStatus(200);
+        $this->get('/forgot-password/verify')->assertRedirect(route('password.request'));
+    }
 }
