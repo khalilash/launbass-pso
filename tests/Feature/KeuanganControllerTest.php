@@ -60,9 +60,6 @@ class KeuanganControllerTest extends TestCase
 
         $response = $this->get('/keuangan');
 
-        // Kita tidak bisa assert Status 200 langsung jika route dilindungi,
-        // Tapi setidaknya kita mengetes jalurnya ada. Jika redirect (302) artinya butuh login,
-        // Jika 200 berarti sukses memuat view.
         $this->assertTrue(in_array($response->status(), [200, 302]));
     }
 
@@ -73,7 +70,8 @@ class KeuanganControllerTest extends TestCase
             'Tanggal_Transaksi' => now()
         ]);
 
-        $response = $this->get('/keuangan/grafik');
+        // SESUAIKAN DENGAN ROUTE ASLI
+        $response = $this->get('/grafik-keuangan');
         $this->assertTrue(in_array($response->status(), [200, 302]));
     }
 
@@ -85,7 +83,8 @@ class KeuanganControllerTest extends TestCase
             'Kategori' => 'Detergen'
         ]);
 
-        $response = $this->get('/keuangan/aliran-kas');
+        // SESUAIKAN DENGAN ROUTE ASLI
+        $response = $this->get('/aliran-kas');
         $this->assertTrue(in_array($response->status(), [200, 302]));
     }
 
@@ -96,7 +95,6 @@ class KeuanganControllerTest extends TestCase
             'catatan' => 'Test',
         ]);
 
-        // Harus redirect ke login karena session user_id kosong
         $response->assertRedirect('/login');
     }
 
@@ -106,17 +104,16 @@ class KeuanganControllerTest extends TestCase
                          ->post('/keuangan/pemasukan', [
                              'jumlah' => 150000,
                              'catatan' => 'Cuci karpet',
-                             'tambah_biaya' => true // Test agar masuk ke cabang pengeluaran juga
+                             'tambah_biaya' => true
                          ]);
 
-        $response->assertRedirect(); // Harus mengarah kembali ke rute keuangan
+        $response->assertRedirect();
 
         $this->assertDatabaseHas('pemasukan', [
             'Jumlah' => 150000,
             'Catatan' => 'Cuci karpet'
         ]);
 
-        // Karena tambah_biaya true, tabel pengeluaran harusnya ikut bertambah
         $this->assertDatabaseHas('pengeluaran', [
             'Jumlah' => 20000,
             'Kategori' => 'Operasional'
@@ -125,18 +122,17 @@ class KeuanganControllerTest extends TestCase
 
     public function test_quick_add_income_sukses()
     {
+        // SESUAIKAN DENGAN ROUTE ASLI
         $response = $this->withSession(['user_id' => 1])
-                         ->post('/keuangan/quick-add-income');
+                         ->post('/keuangan/pemasukan/quick');
 
         $response->assertRedirect();
 
-        // Cek data pemasukan manual
         $this->assertDatabaseHas('pemasukan', [
             'Jumlah' => 20000,
             'Catatan' => 'Pemasukan manual'
         ]);
 
-        // Cek potongan biaya
         $this->assertDatabaseHas('pengeluaran', [
             'Jumlah' => 20000,
             'Kategori' => 'Operasional'
@@ -167,13 +163,13 @@ class KeuanganControllerTest extends TestCase
         $response = $this->withSession(['user_id' => 1])
                          ->post('/keuangan/pengeluaran', [
                              'jumlah' => 1000000,
-                             'kategori' => 'Sewa Tempat', // Test if statement "Sewa Tempat" => "Sewa"
+                             'kategori' => 'Sewa Tempat',
                          ]);
 
         $response->assertRedirect();
 
         $this->assertDatabaseHas('pengeluaran', [
-            'Kategori' => 'Sewa', // Harus otomatis diubah ke Sewa oleh Controller
+            'Kategori' => 'Sewa',
         ]);
     }
 }
