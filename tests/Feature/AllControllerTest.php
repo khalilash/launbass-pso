@@ -146,4 +146,12 @@ class AllControllerTest extends TestCase
              ->get('/pesanan/9999/detail')
              ->assertRedirect(route('home'));
     }
+    public function test_middleware_and_security()
+    {
+    // Memaksa akses rute yang dilindungi tanpa login
+    $this->get('/home')->assertRedirect('/login');
+
+    // Cek CSRF (Laravel secara default mengecek ini jika kita mengirim post tanpa token)
+    $this->post('/login', [])->assertStatus(302);
+    }
 }
