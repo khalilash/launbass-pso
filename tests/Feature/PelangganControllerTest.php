@@ -13,15 +13,15 @@ class PelangganControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // Update skema tabel agar memiliki semua kolom yang digunakan controller
+        // Paksa pembuatan tabel dengan nama kolom huruf kecil semua
         DB::statement('
-            CREATE TABLE IF NOT EXISTS pelanggan (
+            CREATE TABLE pelanggan (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nama TEXT,
                 alamat TEXT,
                 telepon TEXT,
-                Email TEXT,
-                Nomor_HP TEXT,
+                email TEXT,
+                nomor_hp TEXT,
                 aktif INTEGER DEFAULT 1
             )
         ');
@@ -43,17 +43,15 @@ class PelangganControllerTest extends TestCase
                              'Alamat' => 'Jl. Testing No. 1'
                          ]);
 
-        // Cek redirect (302)
-        $response->assertStatus(302);
-
-        // Cek apakah data masuk dengan nama kolom 'nama' (sesuai insert di Controller)
+        $response->assertRedirect();
+        // Cek database dengan nama kolom huruf kecil
         $this->assertDatabaseHas('pelanggan', ['nama' => 'Budi Test']);
     }
 
     public function test_bisa_edit_dan_update_pelanggan()
     {
         DB::table('pelanggan')->insert([
-            'id' => 1, 'nama' => 'Lama', 'alamat' => 'Alamat Lama', 'telepon' => '123', 'Email' => 'a@b.com', 'Nomor_HP' => '123'
+            'id' => 1, 'nama' => 'Lama', 'alamat' => 'Alamat Lama', 'telepon' => '123', 'email' => 'a@b.com', 'nomor_hp' => '123'
         ]);
 
         $response = $this->withSession(['user_id' => 1])
@@ -64,14 +62,14 @@ class PelangganControllerTest extends TestCase
                              'Alamat' => 'Alamat Baru'
                          ]);
 
-        $response->assertStatus(302);
+        $response->assertRedirect();
         $this->assertDatabaseHas('pelanggan', ['nama' => 'Baru']);
     }
 
     public function test_bisa_toggle_status_aktif_nonaktif()
     {
         DB::table('pelanggan')->insert([
-            'id' => 2, 'nama' => 'Status Test', 'aktif' => 1, 'alamat' => 'Jl. Test', 'telepon' => '1', 'Email' => 'x@y.com', 'Nomor_HP' => '1'
+            'id' => 2, 'nama' => 'Status Test', 'aktif' => 1, 'alamat' => 'Jl. Test', 'telepon' => '1', 'email' => 'x@y.com', 'nomor_hp' => '1'
         ]);
 
         $this->withSession(['user_id' => 1])->patch('/pelanggan/2/toggle-status');
