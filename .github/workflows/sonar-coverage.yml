@@ -19,7 +19,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2' # Sesuaikan dengan versi PHP proyek Anda
-          coverage: pcov 
+          coverage: pcov
 
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
@@ -28,6 +28,7 @@ jobs:
         run: |
           cp .env.example .env
           php artisan key:generate
+          php artisan route:clear
 
       - name: Run Tests & Generate Coverage Report
         run: php artisan test --coverage-clover=coverage.xml
