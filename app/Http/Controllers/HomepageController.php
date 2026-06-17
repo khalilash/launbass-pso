@@ -136,9 +136,9 @@ class HomepageController extends Controller
                 'p.Catatan',
                 'p.Status_Pesanan',
                 'p.Tanggal_Keluar',
-                'c.Nama as pelanggan_nama',
-                'c.Nomor_HP as pelanggan_telepon',
-                'c.Alamat as pelanggan_alamat'
+                'c.nama as pelanggan_nama',
+                'c.telepon as pelanggan_telepon',
+                'c.alamat as pelanggan_alamat'
             )
             ->get();
 

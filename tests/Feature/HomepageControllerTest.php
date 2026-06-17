@@ -77,7 +77,7 @@ class HomepageControllerTest extends TestCase
         ]);
 
         DB::table('pelanggan')->insert([
-            'IDPelanggan' => 2, 'id' => 2, 'nama' => 'Pelanggan Selesai', 'telepon' => '0822'
+            'IDPelanggan' => 2, 'id' => 2, 'nama' => 'Pelanggan Selesai', 'telepon' => '0822', 'alamat' => 'SBY'
         ]);
 
         // Buat 1 pesanan "Selesai"
