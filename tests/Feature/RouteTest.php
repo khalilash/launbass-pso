@@ -41,7 +41,7 @@ class RouteTest extends TestCase
     public function test_rute_forgot_password()
     {
         $this->get('/forgot-password')->assertStatus(200);
-        $this->get('/forgot-password/verify')->assertStatus(200);
-        $this->get('/forgot-password/reset')->assertStatus(200);
+        $this->get('/forgot-password/verify')->assertStatus(302);
+        $this->get('/forgot-password/reset')->assertStatus(302);
     }
 }
