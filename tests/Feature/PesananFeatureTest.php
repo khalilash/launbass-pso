@@ -115,6 +115,9 @@ class PesananFeatureTest extends TestCase
             'IDPaket'         => $paket->IDPaket,
         ]);
 
+        // BARIS BARU: Menyegarkan instansiasi model dari database agar relasi termuat sempurna
+        $pesanan->refresh();
+
         // Properti yang dipanggil juga harus menggunakan huruf kecil sesuai migrasi
         $this->assertEquals('Andi Wijaya', $pesanan->pelanggan->nama);
     }
