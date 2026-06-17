@@ -30,27 +30,26 @@ class PelangganController extends Controller
     {
         // Validate using the exact input names from the form (match DB columns)
         $validated = $request->validate([
-            'Nama'           => 'required|string|max:255',
-            'Email'          => 'required|email|max:255',
-            'Nomor_HP'       => 'required|string|max:40',
-            'Tanggal_Lahir'  => 'required|string|max:50',
-            'Alamat'         => 'required|string|max:1000',
-        ]);
+    'Nama'           => 'required|string|max:255',
+    'Email'          => 'required|email|max:255',
+    'Nomor_HP'       => 'required|string|max:40',
+    'Tanggal_Lahir'  => 'nullable',
+    'Alamat'         => 'required|string|max:1000',
+]);
 
         $table = 'pelanggan';
 
         try {
-            DB::table($table)->insert([
-                'Nama'           => $validated['Nama'],
-                'Email'          => $validated['Email'],
-                'Nomor_HP'       => $validated['Nomor_HP'],
-                'Tanggal_Lahir'  => $validated['Tanggal_Lahir'],
-                'Alamat'         => $validated['Alamat'],
-                // If your table has 'aktif' or timestamps, add them here
-                // 'aktif' => 1,
-                // 'created_at' => now(),
-                // 'updated_at' => now(),
-            ]);
+           DB::table($table)->insert([
+    'nama'      => $validated['Nama'],
+    'alamat'    => $validated['Alamat'],
+    'telepon'   => $validated['Nomor_HP'],
+
+    'Email'     => $validated['Email'],
+    'Nomor_HP'  => $validated['Nomor_HP'],
+
+    'aktif'     => 1,
+]);
         } catch (\Throwable $e) {
             // Log error and return with friendly message
             Log::error('Failed to insert pelanggan: '.$e->getMessage(), [
@@ -95,22 +94,21 @@ class PelangganController extends Controller
             'Nama'           => 'required|string|max:255',
             'Email'          => 'required|email|max:255',
             'Nomor_HP'       => 'required|string|max:40',
-            'Tanggal_Lahir'  => 'required|string|max:50',
+            'Tanggal_Lahir'  => 'nullable',
             'Alamat'         => 'required|string|max:1000',
         ]);
 
         $table = 'pelanggan';
 
         try {
-            DB::table($table)->where('id', $id)->update([
-                'Nama'           => $validated['Nama'],
-                'Email'          => $validated['Email'],
-                'Nomor_HP'       => $validated['Nomor_HP'],
-                'Tanggal_Lahir'  => $validated['Tanggal_Lahir'],
-                'Alamat'         => $validated['Alamat'],
-                // If you have updated_at timestamp
-                // 'updated_at' => now(),
-            ]);
+          DB::table($table)->where('id', $id)->update([
+            'nama'      => $validated['Nama'],
+            'alamat'    => $validated['Alamat'],
+            'telepon'   => $validated['Nomor_HP'],
+
+            'Email'     => $validated['Email'],
+            'Nomor_HP'  => $validated['Nomor_HP'],
+        ]);
         } catch (\Throwable $e) {
             Log::error('Failed to update pelanggan: '.$e->getMessage(), ['id' => $id, 'payload' => $validated]);
             return redirect()->route('datapelanggan')->with('error', 'Gagal memperbarui data pelanggan.');
