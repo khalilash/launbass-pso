@@ -9,7 +9,6 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\KeuanganController;
 use App\Http\Controllers\PembayaranController;
-use App\Http\Controllers\DemoController;
 
 
 /*
@@ -274,11 +273,3 @@ Route::post('/forgot-password/reset', [ForgotPasswordController::class, 'resetPa
     ->middleware('guest')
     ->name('password.update');
 
-
-/* ============================
-   NEW FITUR CSV
-   ============================ */
-  Route::get(
-    '/demo-export',
-    [DemoController::class, 'exportCsv']
-)->name('demo.export');
