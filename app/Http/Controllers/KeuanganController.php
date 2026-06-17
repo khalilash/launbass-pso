@@ -118,24 +118,22 @@ class KeuanganController extends Controller
         $exDate = $this->detectColumn('pengeluaran', ['Tanggal_Pengeluaran','tanggal_pengeluaran','Tanggal_Transaksi','tanggal_transaksi','Tanggal','created_at'], 'Tanggal_Pengeluaran');
 
         $incomeAgg = DB::table('pemasukan')
-             ->selectRaw("
-        YEAR($inDate) as y,
-        MONTH($inDate) as m,
+    ->selectRaw("
+        strftime('%Y', $inDate) as y,
+        strftime('%m', $inDate) as m,
         SUM($inAmt) as total
     ")
-    ->groupByRaw("YEAR($inDate), MONTH($inDate)")
+    ->groupByRaw("strftime('%Y', $inDate), strftime('%m', $inDate)")
     ->get();
 
-        $expenseAgg = DB::table('pengeluaran')
-           ->selectRaw("
-        YEAR($exDate) as y,
-        MONTH($exDate) as m,
+    $expenseAgg = DB::table('pengeluaran')
+    ->selectRaw("
+        strftime('%Y', $exDate) as y,
+        strftime('%m', $exDate) as m,
         SUM($exAmt) as total
     ")
-    ->groupByRaw("YEAR($exDate), MONTH($exDate)")
+    ->groupByRaw("strftime('%Y', $exDate), strftime('%m', $exDate)")
     ->get();
-
-dd($incomeAgg, $expenseAgg);
 
         $incomeData = [];
         foreach ($incomeAgg as $row) {
