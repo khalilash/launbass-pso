@@ -278,7 +278,7 @@ Route::post('/forgot-password/reset', [ForgotPasswordController::class, 'resetPa
 /* ============================
    NEW FITUR CSV
    ============================ */
-    Route::get(
+  Route::get(
     '/demo-export',
     [DemoController::class, 'exportCsv']
-);
+)->name('demo.export');
