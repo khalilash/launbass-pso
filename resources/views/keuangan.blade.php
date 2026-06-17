@@ -312,10 +312,13 @@
         <span class="btn-label">Aliran Kas</span>
       </a>
 
-      //NEW FITUR DISINI YAA EXPORT CSV
+/* ============================
+NEW FITUR CSV
+============================ */
+
       <a class="btn-main" href="{{ route('demo.export') }}">
     <i class="bi bi-download"></i>
-    <span class="btn-label">Demo Export CSV</span>
+    <span class="btn-label">Export CSV</span>
 </a>
 
       <h6 class="section-title mt-3">Riwayat Keuangan</h6>
