@@ -132,16 +132,17 @@ class HomepageControllerTest extends TestCase
     public function test_fitur_tandai_pesanan_selesai()
     {
         DB::table('pesanan')->insert([
-            'IDPesanan' => 10,
+            'IDPesanan' => 2,
+            'IDPelanggan' => 2,
+            'IDPaket' => 2,
             'IDUser' => 1,
-            'IDPelanggan' => 1,
-            'IDPaket' => 1,
-            'Status_Pesanan' => 'Diproses',
+            'Tipe_Pengiriman' => 'Pickup',
+            'Status_Pesanan' => 'Selesai',
             'Tanggal_Masuk' => now()->toDateString(),
-            'Total_Biaya' => 15000,
-            'Berat_Kg' => 1,
-            'Jumlah_Pcs' => 1,
-            'Tipe_Pengiriman' => 'Ambil Sendiri'
+            'Tanggal_Keluar' => now()->toDateString(),
+            'Total_Biaya' => 50000,
+            'Berat_Kg' => 2,
+            'Jumlah_Pcs' => 5
         ]);
 
         // Hit endpoint untuk mengubah status menjadi selesai
