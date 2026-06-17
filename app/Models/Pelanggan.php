@@ -9,19 +9,20 @@ class Pelanggan extends Model
 {
     use HasFactory;
 
-    // Pastikan nama tabel benar jika tidak menggunakan standar plural bahasa Inggris
     protected $table = 'pelanggan';
 
-    // Pastikan primary key benar jika bukan 'id'
     protected $primaryKey = 'IDPelanggan';
 
-    // TAMBAHKAN BARIS INI agar test "timestamps dinonaktifkan" berhasil (PASS)
+    // TAMBAHKAN DUA BARIS INI (Sama seperti di Paket.php agar fitur delete() bekerja)
+    public $incrementing = true;
+    protected $keyType = 'int';
+
     public $timestamps = false;
 
-    // INI BAGIAN YANG PALING PENTING
     protected $fillable = [
-        'nama',      // Pastikan ini menggunakan huruf kecil sesuai test/migrasi
+        'nama',
         'telepon',
         'alamat',
+        'aktif',     // TAMBAHKAN INI agar kolom aktif bisa diisi lewat mass-assignment
     ];
 }

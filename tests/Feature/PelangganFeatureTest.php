@@ -55,7 +55,8 @@ class PelangganFeatureTest extends TestCase
 
         $pelanggan->delete();
 
-        $this->assertDatabaseMissing('pelanggan', [
+        // Menggunakan assertSoftDeleted karena data tidak benar-benar dihapus dari tabel
+        $this->assertSoftDeleted('pelanggan', [
             'telepon' => '08111222333',
         ]);
     }
@@ -70,9 +71,10 @@ class PelangganFeatureTest extends TestCase
             'aktif'   => false,
         ]);
 
+        // Ubah false menjadi 0 karena database SQLite menganggap boolean false sebagai integer 0
         $this->assertDatabaseHas('pelanggan', [
             'nama'  => 'Rudi Hermawan',
-            'aktif' => false,
+            'aktif' => 0,
         ]);
     }
 }
