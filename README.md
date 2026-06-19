@@ -30,3 +30,27 @@ Untuk usaha laundry dengan beberapa karyawan, aplikasi membantu pemilik mengatur
 Mencatat pemasukan dan pengeluaran harian secara otomatis.
 - Informasi & Tampilan
 Aplikasi menampilkan profil bisnis laundry secara jelas, meliputi alamat, jam operasional, daftar layanan, serta harga. Dengan begitu, pelanggan baru maupun lama dapat dengan mudah memahami layanan yang ditawarkan.
+
+## Arsitektur DevOps & Infrastruktur Cloud
+
+Proyek ini menerapkan ekosistem DevOps modern guna menjamin kualitas kode tinggi dan ketersediaan layanan (*high availability*) tanpa intervensi manual yang repetitif.
+
+### 1. Continuous Integration (CI) via GitHub Actions
+Setiap kali tim pengembang melakukan *push* atau *merge* ke branch `main`, pipeline GitHub Actions akan terpicu secara otomatis untuk melakukan validasi awal:
+* Inisialisasi *environment* PHP 8.2 dan manajemen dependensi via Composer.
+* Pemeriksaan keamanan berkas dan sinkronisasi *environment secrets* secara aman.
+
+### 2. Quality Gate & Automated Testing (SonarQube & PHPUnit)
+* **Automated Testing:** Pipeline mengeksekusi rangkaian *Unit Test* dan *Feature Test* menggunakan framework PHPUnit untuk memastikan tidak ada fitur lama yang rusak (*regression*) akibat kode baru.
+* **Statics Code Analysis:** Kode kemudian dilempar ke **SonarQube Cloud** untuk memindai adanya *bug*, celah keamanan (*vulnerabilities*), maupun *code smell*.
+* **Code Coverage:** Berdasarkan hasil pengujian akhir, proyek ini berhasil menyentuh angka **70.6% Code Coverage**, memenuhi standar kelayakan rilis.
+
+### 3. Continuous Deployment (CD) ke Microsoft Azure
+* **Azure App Service:** Kode yang telah dinyatakan lolos pengujian (*passed code quality check*) akan langsung di-deploy secara otomatis ke infrastruktur cloud Microsoft Azure App Service (berbasis Linux Environment).
+* **Zero Downtime:** Membantu proses *publish* dan pembaruan fitur aplikasi berjalan secara berkelanjutan tanpa perlu melakukan konfigurasi server virtual atau web server secara manual dari awal.
+
+### 4. Continuous Monitoring
+* **Azure Monitor:** Setelah aplikasi berjalan di lingkungan produksi, performa sistem dipantau secara berkala melalui platform monitoring bawaan Azure. 
+* Metrik yang diawasi mencakup total *incoming requests*, rata-rata *response time* server, data *in/out traffic*, hingga pelacakan log eror secara *real-time* untuk mempercepat proses *debugging* jika terjadi kendala pada server.
+
+Dokumentasi detail mengenai project ini dapat diakses di: https://canva.link/qf2q7i05826pj5p
