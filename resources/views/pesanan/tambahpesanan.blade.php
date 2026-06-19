@@ -341,7 +341,7 @@
               <i class="bi bi-box-seam"></i> Pengiriman
             </label>
             <select id="pengiriman" name="pengiriman" class="form-select">
-              <option value="Pickup">Tidak</option>
+              <option value="Ambil">Tidak</option>
               <option value="Pengiriman">Ya</option>
             </select>
           </div>
