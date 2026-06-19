@@ -313,7 +313,11 @@
       </a>
 
     <!-- New Fitur CSV YAA -->
-       
+       <a class="btn-main" href="{{ route('demo.export') }}">
+    <i class="bi bi-download"></i>
+    <span class="btn-label">Export CSV</span>
+        </a>
+
 
       <h6 class="section-title mt-3">Riwayat Keuangan</h6>
 

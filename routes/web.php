@@ -281,3 +281,7 @@ Route::post('/forgot-password/reset', [ForgotPasswordController::class, 'resetPa
     ->middleware('guest')
     ->name('password.update');
 
+Route::get(
+    '/demo-export',
+    [DemoController::class, 'exportCsv']
+)->name('demo.export');
