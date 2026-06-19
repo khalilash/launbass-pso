@@ -717,7 +717,7 @@
         {{-- === TABS === --}}
         <div class="tab-wrapper">
             <div class="tab-pill">
-                <button class="tab-btn active" data-tab="ambil">Pickup</button>
+                <button class="tab-btn active" data-tab="Pick up">Ambil</button>
                 <button class="tab-btn" data-tab="delivery">Delivery</button>
             </div>
         </div>
